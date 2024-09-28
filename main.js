@@ -1,7 +1,7 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.136';
 
 
-class SimonDevGLSLCourse {
+class Terrain {
   constructor() {
   }
 
@@ -87,6 +87,6 @@ class SimonDevGLSLCourse {
 let APP_ = null;
 
 window.addEventListener('DOMContentLoaded', async () => {
-  APP_ = new SimonDevGLSLCourse();
+  APP_ = new Terrain();
   await APP_.initialize();
 });
