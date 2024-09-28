@@ -26,8 +26,8 @@ class Terrain {
   }
 
   async setupProject_() {
-    const vsh = await fetch('./shaders/vertex-shader.glsl');
-    const fsh = await fetch('./shaders/fragment-shader.glsl');
+    const vsh = await fetch('./shaders/terrain.vert');
+    const fsh = await fetch('./shaders/terrain.frag');
 
     const material = new THREE.ShaderMaterial({
       uniforms: {
