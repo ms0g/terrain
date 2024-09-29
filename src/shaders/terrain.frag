@@ -68,24 +68,6 @@ float saturate(float x) {
   	return clamp(x, 0.0, 1.0);
 }
 
-float sdfSphere(vec3 pos, float r) {
-	return length(pos) - r;
-}
-
-float sdfBox(vec3 p, vec3 b) {
-  	vec3 q = abs(p) - b;
-  	return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
-}
-
-float sdfTorus(vec3 p, vec2 t) {
-  	vec2 q = vec2(length(p.xz)-t.x,p.y);
-  	return length(q)-t.y;
-}
-
-float sdfPlane(vec3 p) {
-	return p.y;
-}
-
 Material matMin(Material m0, Material m1) {
 	if (m0.dist < m1.dist) {
 		return m0;
