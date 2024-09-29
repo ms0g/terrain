@@ -1,6 +1,7 @@
 # Terrain
 ## Overview
 This project demonstrates how to generate and render a 3D terrain using raymarching. Raymarching is a technique for rendering complex 3D scenes by calculating the distance from the camera to the nearest surface using a Signed Distance Field (SDF). The terrain is defined mathematically, allowing for smooth transitions, infinite detail, and dynamic surface generation without the need for complex geometry.
+
 <img src="assets/terrain.png" alt="image" width="700" height="auto">
 
 ## Features
