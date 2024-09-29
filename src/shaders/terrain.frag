@@ -142,9 +142,13 @@ vec3 calculateNormal(vec3 pos) {
 }
 
 vec3 calculateLighting(vec3 pos, vec3 normal, vec3 lightColor, vec3 lightDir) {
-	float dp = saturate(dot(normal, lightDir));
+	float ambientStrength = 0.012;
+    vec3 ambient = ambientStrength * lightColor;
+	
+	float diff = saturate(dot(normal, lightDir));
+	vec3 diffuse = diff * lightColor;
 
-	return lightColor * dp;
+	return ambient + diffuse;
 
 }
 
@@ -169,7 +173,7 @@ Material rayCast(vec3 cameraOrigin, vec3 cameraDir, int numSteps, float startDis
 		vec3 pos = cameraOrigin + cameraDir * mat.dist;
 		Material result = calculateSceneSDF(pos);
 
-		// Case 1: distToScene < 0, intersected scene
+		// Case 1: distToScene < MIN_DIST, intersected scene
 		if (abs(result.dist) < MIN_DIST * mat.dist) {
 			break;
 		}
@@ -178,7 +182,7 @@ Material rayCast(vec3 cameraOrigin, vec3 cameraDir, int numSteps, float startDis
 		mat.color = result.color;
 		
 		// Case 2: dist > MAX_DIST, out of the scene entirely
-		if (mat.dist > MAX_DIST) {
+		if (mat.dist > maxDist) {
 			return defaultMat;
 		}
 	}
@@ -199,8 +203,8 @@ float calculateShadow(vec3 pos, vec3 lightDir) {
 vec3 rayMarch(vec3 cameraOrigin, vec3 cameraDir) {
 	Material mat = rayCast(cameraOrigin, cameraDir, NUM_STEPS, 1.0, MAX_DIST);
 
-	float skyT = exp(saturate(cameraDir.y) * -40.0);
-	vec3 skyColor = mix(vec3(0.025, 0.065, 0.5), vec3(0.4, 0.5, 1.0), skyT);
+	float skyT = exp(saturate(cameraDir.y) * -10.0);
+	vec3 skyColor = mix(vec3(0.025, 0.065, 0.5), vec3(0.7, 0.2, 0.0), skyT);
 	
 	if (mat.dist < 0.0) {
 		return skyColor;
@@ -225,9 +229,9 @@ vec3 rayMarch(vec3 cameraOrigin, vec3 cameraDir) {
 	float fogDist = distance(cameraOrigin, pos);
 	float inscatter = 1.0 - exp(-fogDist * fogDist * mix(0.0005, 0.0001, sunFactor));
 	float extinction = exp(-fogDist * fogDist * 0.01);
-	vec3 fogColor = mix(skyColor, vec3(1.0, 0.9, 0.65), sunFactor);
+	vec3 fogColor = skyColor;
 
-	color = color * extinction * 1.0 + fogColor * inscatter * 1.0;
+	color = color * extinction + fogColor * inscatter;
 	return color;
 }
 
