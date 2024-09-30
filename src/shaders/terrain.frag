@@ -186,7 +186,8 @@ vec3 rayMarch(vec3 cameraOrigin, vec3 cameraDir) {
 	Material mat = rayCast(cameraOrigin, cameraDir, NUM_STEPS, 1.0, MAX_DIST);
 
 	float skyFactor = exp(saturate(cameraDir.y) * -40.0);
-	vec3 skyColor = mix(vec3(0.025, 0.065, 0.5), vec3(0.7, 0.2, 0.0), skyFactor);
+	vec3 skyColor = exp(-cameraDir.y/vec3(0.025, 0.065, 0.5));
+	skyColor = mix(skyColor, vec3(0.7, 0.2, 0.0), skyFactor);
 	
 	if (mat.dist < 0.0) {
 		return skyColor;
