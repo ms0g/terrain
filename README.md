@@ -11,6 +11,10 @@ This project demonstrates how to generate and render a 3D terrain using raymarch
 - `Shadows`
 - `Fog and Atmosphere:` Adds atmospheric effects such as fog to enhance the depth perception of the terrain.
 
+## Usage
+Serve the `src` directory with a web server then visit `localhost` or 
+try [the live demo](https://ms0g.github.io/terrain/).
+
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
