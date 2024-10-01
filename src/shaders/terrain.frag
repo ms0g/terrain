@@ -29,8 +29,8 @@ float remap(float v, float inMin, float inMax, float outMin, float outMax) {
 }
 
 float random(vec2 p) {
-	p = 50.0 * fract(p*0.318 + vec2(0.71, 0.113));
-	return -1.0 + 2.0*fract(p.x*p.y*(p.x + p.y));
+	p = 50.0 * fract(p * 0.318 + vec2(0.71, 0.113));
+	return -1.0 + 2.0 * fract(p.x * p.y * (p.x + p.y));
 }
 
 float noise(vec2 p) {
