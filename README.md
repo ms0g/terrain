@@ -1,5 +1,4 @@
 # Terrain
-## Overview
 Procedurally generated 3D terrain rendered in the fragment shader.
 
 <img src="assets/terrain.png" alt="image" width="700" height="auto">
